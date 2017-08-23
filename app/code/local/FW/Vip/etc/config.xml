@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FW_Vip>
+            <version>0.1.0</version>
+        </FW_Vip>
+    </modules>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <fw_vip after="Mage_Adminhtml">FW_Vip_Adminhtml</fw_vip>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <global>
+    	<events>
+     		<checkout_onepage_controller_success_action>
+                <observers>
+                    <fw_vip>
+                        <class>FW_Vip_Model_Observer</class>
+						<method>hookToOrderSuccessEvent</method>
+                    </fw_vip>
+                </observers>
+            </checkout_onepage_controller_success_action>
+            
+            <checkout_allow_guest>
+                <observers>
+                    <fw_vip>
+                        <class>FW_Vip_Model_Observer</class>
+                        <method>checkForVipItems</method>
+                    </fw_vip>
+                </observers>
+            </checkout_allow_guest>
+            
+         <vistaprocessing_complete_paypal_order>
+			<observers>
+				<fw_vip>
+					<class>FW_Vip_Model_Observer</class>
+					<method>completeFailedOrderSuccessEvent</method>
+				</fw_vip>
+			</observers>
+	     </vistaprocessing_complete_paypal_order>
+	    
+		</events>
+		<models>
+            <vip>
+                <class>FW_Vip_Model</class>
+                <resourceModel>vip_mysql4</resourceModel>
+            </vip>
+            <vip_mysql4>
+                <class>FW_Vip_Model_Mysql4</class>
+                <entities>
+                    <vip>
+                        <table>fw_vip_mappings</table>
+                    </vip>
+                </entities>
+            </vip_mysql4>
+        </models>
+        <resources>
+            <vip_setup>
+                <setup>
+                    <module>FW_Vip</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </vip_setup>
+            <vip_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </vip_write>
+            <vip_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </vip_read>
+        </resources>
+        <blocks>
+            <vip>
+                <class>FW_Vip_Block</class>
+            </vip>
+        </blocks>
+        <helpers>
+            <vip>
+                <class>FW_Vip_Helper</class>
+            </vip>
+        </helpers>
+    </global>
+</config>

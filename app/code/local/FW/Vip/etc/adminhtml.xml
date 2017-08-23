@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <customer>
+            <children>
+                <items module="vip">
+                    <title>VIP Customer Program</title>
+                    <sort_order>100</sort_order>
+                    <action>adminhtml/vip/index</action>
+                </items>
+            </children>
+        </customer>
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <FW_Vip>
+                        <title>Vip Module</title>
+                        <sort_order>10</sort_order>
+                    </FW_Vip>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+    <layout>
+        <updates>
+            <vip>
+                <file>vip.xml</file>
+            </vip>
+        </updates>
+    </layout>
+</config>
